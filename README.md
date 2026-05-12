@@ -79,6 +79,18 @@ ai-research-agent/
 - *"Compare transformer vs state space models for long-context NLP tasks"*
 - *"Evaluate the economic impacts of Universal Basic Income based on current pilots?"*
 
+## 🚀 Deployment
+
+### Deploy to Vercel
+1.  **Push to GitHub**: Ensure your latest code is on GitHub.
+2.  **Import to Vercel**: Connect your GitHub repository to Vercel.
+3.  **Set Environment Variables**: In the Vercel dashboard, go to Settings -> Environment Variables and add:
+    - `OPENROUTER_API_KEY`: Your OpenRouter API key.
+4.  **Deploy**: Vercel will automatically detect `vercel.json` and deploy the Flask app.
+
+> [!IMPORTANT]
+> Vercel's free tier has a 10-second timeout for serverless functions. Since deep research queries can take longer, you may need a Pro account or use a platform like **Render** for longer-running tasks.
+
 ## 📝 License
 
 MIT — Free to use, modify, and distribute.
