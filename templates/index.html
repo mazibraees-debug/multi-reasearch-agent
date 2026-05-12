@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NeuroAgent — Multi-Agent AI Research System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise-overlay"></div>
+  <div class="grid-bg"></div>
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="6" fill="var(--accent)" opacity="0.8"/>
+          <line x1="20" y1="2" x2="20" y2="10" stroke="var(--accent)" stroke-width="1.5"/>
+          <line x1="20" y1="30" x2="20" y2="38" stroke="var(--accent)" stroke-width="1.5"/>
+          <line x1="2" y1="20" x2="10" y2="20" stroke="var(--accent)" stroke-width="1.5"/>
+          <line x1="30" y1="20" x2="38" y2="20" stroke="var(--accent)" stroke-width="1.5"/>
+          <line x1="7" y1="7" x2="13" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+          <line x1="27" y1="27" x2="33" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+          <line x1="33" y1="7" x2="27" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+          <line x1="13" y1="27" x2="7" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="logo-text">NeuroAgent</span>
+      <span class="logo-tag">v2.0 MULTI-AGENT</span>
+    </div>
+    <div class="header-status">
+      <div class="status-dot" id="statusDot"></div>
+      <span id="statusText">IDLE</span>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- API Key Setup -->
+    <section class="api-setup" id="apiSetup">
+      <div class="setup-card">
+        <div class="setup-icon">🔑</div>
+        <h2>OpenRouter API Key</h2>
+        <p>Enter your OpenRouter API key to activate the multi-agent system. Get one free at <strong>openrouter.ai</strong></p>
+        <div class="key-input-wrap">
+          <input type="password" id="apiKeyInput" placeholder="sk-or-v1-..." class="key-input" />
+          <button class="btn-primary" id="saveKeyBtn">Activate System</button>
+        </div>
+        <div class="model-select-wrap">
+          <label>Select AI Model:</label>
+          <select id="modelSelect" class="model-select">
+            <option value="meta-llama/llama-3.3-70b-instruct">Llama 3.3 70B (Free)</option>
+            <option value="mistralai/mistral-7b-instruct">Mistral 7B (Free)</option>
+            <option value="google/gemma-3-12b-it:free">Gemma 3 12B (Free)</option>
+            <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+            <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
+            <option value="openai/gpt-4o">GPT-4o</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agent Pipeline Visualizer -->
+    <section class="pipeline-section" id="pipelineSection" style="display:none">
+      <div class="pipeline-header">
+        <h2>Multi-Agent Research Pipeline</h2>
+        <p class="pipeline-sub">5 specialized agents working in orchestrated sequence</p>
+      </div>
+      <div class="pipeline-agents" id="pipelineAgents">
+        <div class="agent-node" id="agent-planner" data-agent="planner">
+          <div class="agent-icon">🧠</div>
+          <div class="agent-name">PLANNER</div>
+          <div class="agent-desc">Decomposes query into subtasks</div>
+          <div class="agent-status">READY</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="agent-node" id="agent-researcher" data-agent="researcher">
+          <div class="agent-icon">🔍</div>
+          <div class="agent-name">RESEARCHER</div>
+          <div class="agent-desc">Deep knowledge extraction</div>
+          <div class="agent-status">READY</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="agent-node" id="agent-critic" data-agent="critic">
+          <div class="agent-icon">⚖️</div>
+          <div class="agent-name">CRITIC</div>
+          <div class="agent-desc">Validates & finds gaps</div>
+          <div class="agent-status">READY</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="agent-node" id="agent-synthesizer" data-agent="synthesizer">
+          <div class="agent-icon">⚗️</div>
+          <div class="agent-name">SYNTHESIZER</div>
+          <div class="agent-desc">Merges insights coherently</div>
+          <div class="agent-status">READY</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="agent-node" id="agent-writer" data-agent="writer">
+          <div class="agent-icon">✍️</div>
+          <div class="agent-name">WRITER</div>
+          <div class="agent-desc">Produces final report</div>
+          <div class="agent-status">READY</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Query Input -->
+    <section class="query-section" id="querySection" style="display:none">
+      <div class="query-wrap">
+        <textarea id="queryInput" class="query-input" placeholder="Enter a complex research query... e.g. 'Analyze the implications of quantum computing on modern cryptography and suggest post-quantum solutions'"></textarea>
+        <div class="query-controls">
+          <div class="depth-control">
+            <label>Research Depth:</label>
+            <select id="depthSelect" class="depth-select">
+              <option value="quick">Quick (1 pass)</option>
+              <option value="standard" selected>Standard (2 passes)</option>
+              <option value="deep">Deep (3 passes)</option>
+            </select>
+          </div>
+          <button class="btn-run" id="runBtn">
+            <span class="btn-run-icon">▶</span>
+            <span>Run Pipeline</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Agent Logs -->
+    <section class="logs-section" id="logsSection" style="display:none">
+      <div class="logs-header">
+        <h3>Agent Activity Log</h3>
+        <div class="log-controls">
+          <button class="btn-clear" id="clearLogsBtn">Clear</button>
+          <button class="btn-copy" id="copyLogsBtn">Copy Logs</button>
+        </div>
+      </div>
+      <div class="logs-container" id="logsContainer"></div>
+    </section>
+
+    <!-- Results Panel -->
+    <section class="results-section" id="resultsSection" style="display:none">
+      <div class="results-header">
+        <h3>Research Report</h3>
+        <div class="result-controls">
+          <button class="btn-copy" id="copyReportBtn">Copy Report</button>
+          <button class="btn-export" id="exportBtn">Export .md</button>
+          <button class="btn-new" id="newQueryBtn">New Query</button>
+        </div>
+      </div>
+      <div class="results-tabs">
+        <button class="tab active" data-tab="report">📄 Full Report</button>
+        <button class="tab" data-tab="plan">🧠 Research Plan</button>
+        <button class="tab" data-tab="critique">⚖️ Critique</button>
+        <button class="tab" data-tab="raw">🔧 Raw Data</button>
+      </div>
+      <div class="results-content" id="resultsContent"></div>
+
+      <!-- Token Stats -->
+      <div class="stats-bar" id="statsBar">
+        <div class="stat"><span class="stat-label">Total Tokens</span><span class="stat-val" id="totalTokens">0</span></div>
+        <div class="stat"><span class="stat-label">Agents Called</span><span class="stat-val" id="agentsCalled">0</span></div>
+        <div class="stat"><span class="stat-label">Time Elapsed</span><span class="stat-val" id="timeElapsed">0s</span></div>
+        <div class="stat"><span class="stat-label">Model</span><span class="stat-val" id="modelUsed">—</span></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
