@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NeuroAgent — Multi-Agent AI Research System</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
 </head>
+
 <body>
   <div class="noise-overlay"></div>
   <div class="grid-bg"></div>
@@ -15,16 +19,16 @@
     <div class="logo">
       <div class="logo-icon">
         <svg viewBox="0 0 40 40" fill="none">
-          <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="1.5"/>
-          <circle cx="20" cy="20" r="6" fill="var(--accent)" opacity="0.8"/>
-          <line x1="20" y1="2" x2="20" y2="10" stroke="var(--accent)" stroke-width="1.5"/>
-          <line x1="20" y1="30" x2="20" y2="38" stroke="var(--accent)" stroke-width="1.5"/>
-          <line x1="2" y1="20" x2="10" y2="20" stroke="var(--accent)" stroke-width="1.5"/>
-          <line x1="30" y1="20" x2="38" y2="20" stroke="var(--accent)" stroke-width="1.5"/>
-          <line x1="7" y1="7" x2="13" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
-          <line x1="27" y1="27" x2="33" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
-          <line x1="33" y1="7" x2="27" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
-          <line x1="13" y1="27" x2="7" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="20" cy="20" r="18" stroke="var(--accent)" stroke-width="1.5" />
+          <circle cx="20" cy="20" r="6" fill="var(--accent)" opacity="0.8" />
+          <line x1="20" y1="2" x2="20" y2="10" stroke="var(--accent)" stroke-width="1.5" />
+          <line x1="20" y1="30" x2="20" y2="38" stroke="var(--accent)" stroke-width="1.5" />
+          <line x1="2" y1="20" x2="10" y2="20" stroke="var(--accent)" stroke-width="1.5" />
+          <line x1="30" y1="20" x2="38" y2="20" stroke="var(--accent)" stroke-width="1.5" />
+          <line x1="7" y1="7" x2="13" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5" />
+          <line x1="27" y1="27" x2="33" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5" />
+          <line x1="33" y1="7" x2="27" y2="13" stroke="var(--accent)" stroke-width="1.5" opacity="0.5" />
+          <line x1="13" y1="27" x2="7" y2="33" stroke="var(--accent)" stroke-width="1.5" opacity="0.5" />
         </svg>
       </div>
       <span class="logo-text">NeuroAgent</span>
@@ -42,7 +46,8 @@
       <div class="setup-card">
         <div class="setup-icon">🔑</div>
         <h2>OpenRouter API Key</h2>
-        <p>Enter your OpenRouter API key to activate the multi-agent system. Get one free at <strong>openrouter.ai</strong></p>
+        <p>Enter your OpenRouter API key to activate the multi-agent system. Get one free at
+          <strong>openrouter.ai</strong></p>
         <div class="key-input-wrap">
           <input type="password" id="apiKeyInput" placeholder="sk-or-v1-..." class="key-input" />
           <button class="btn-primary" id="saveKeyBtn">Activate System</button>
@@ -64,7 +69,7 @@
     <!-- Agent Pipeline Visualizer -->
     <section class="pipeline-section" id="pipelineSection" style="display:none">
       <div class="pipeline-header">
-        <h2>Multi-Agent Research Pipeline</h2>
+        <h2>Multi-Agent Research </h2>
         <p class="pipeline-sub">5 specialized agents working in orchestrated sequence</p>
       </div>
       <div class="pipeline-agents" id="pipelineAgents">
@@ -108,7 +113,8 @@
     <!-- Query Input -->
     <section class="query-section" id="querySection" style="display:none">
       <div class="query-wrap">
-        <textarea id="queryInput" class="query-input" placeholder="Enter a complex research query... e.g. 'Analyze the implications of quantum computing on modern cryptography and suggest post-quantum solutions'"></textarea>
+        <textarea id="queryInput" class="query-input"
+          placeholder="Enter a complex research query... e.g. 'Analyze the implications of quantum computing on modern cryptography and suggest post-quantum solutions'"></textarea>
         <div class="query-controls">
           <div class="depth-control">
             <label>Research Depth:</label>
@@ -158,9 +164,12 @@
 
       <!-- Token Stats -->
       <div class="stats-bar" id="statsBar">
-        <div class="stat"><span class="stat-label">Total Tokens</span><span class="stat-val" id="totalTokens">0</span></div>
-        <div class="stat"><span class="stat-label">Agents Called</span><span class="stat-val" id="agentsCalled">0</span></div>
-        <div class="stat"><span class="stat-label">Time Elapsed</span><span class="stat-val" id="timeElapsed">0s</span></div>
+        <div class="stat"><span class="stat-label">Total Tokens</span><span class="stat-val" id="totalTokens">0</span>
+        </div>
+        <div class="stat"><span class="stat-label">Agents Called</span><span class="stat-val" id="agentsCalled">0</span>
+        </div>
+        <div class="stat"><span class="stat-label">Time Elapsed</span><span class="stat-val" id="timeElapsed">0s</span>
+        </div>
         <div class="stat"><span class="stat-label">Model</span><span class="stat-val" id="modelUsed">—</span></div>
       </div>
     </section>
@@ -168,4 +177,5 @@
 
   <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
+
 </html>
